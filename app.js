@@ -10,10 +10,11 @@ import bodyParser from 'body-parser';
 import errorhandler from 'errorhandler';
 import {post_router} from './routers/post_router.js';
 import {win_router} from './routers/win_router.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
-const PORT = 4000;
-
+const PORT = process.env.PORT || 4000;
 
 app.use('/posts', post_router);
 app.use('/wins', win_router);
