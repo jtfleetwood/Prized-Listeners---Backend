@@ -16,12 +16,13 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-app.use('/posts', post_router);
-app.use('/wins', win_router);
-
 // Middleware to handle request body parsing, and error handling.
 app.use(bodyParser.json());
 app.use(errorhandler());
+
+
+app.use('/posts', post_router);
+app.use('/wins', win_router);
 
 app.listen(PORT);
 
