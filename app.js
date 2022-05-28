@@ -10,6 +10,7 @@ import bodyParser from 'body-parser';
 import errorhandler from 'errorhandler';
 import {post_router} from './routers/post_router.js';
 import {win_router} from './routers/win_router.js';
+import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -17,6 +18,10 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 // Middleware to handle request body parsing, and error handling.
+app.use(cors({
+    origin: '*'
+}));
+
 app.use(bodyParser.json());
 app.use(errorhandler());
 
