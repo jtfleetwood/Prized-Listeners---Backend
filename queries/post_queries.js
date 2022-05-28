@@ -32,7 +32,7 @@ export const create_post = async (new_post) => {
     try {
         
         await pool.query(`INSERT INTO posts (user_id, title, upvotes, yt_url, primary_artist, contest_week, is_winner)
-        VALUES('${new_post.user_id}', ${new_post.title}, ${new_post.upvotes}, '${new_post.yt_url}', '${new_post.primary_artist}', ${new_post.contest_week}, ${is_winner});`);
+        VALUES('${new_post.user_id}', '${new_post.title}', ${new_post.upvotes}, '${new_post.yt_url}', '${new_post.primary_artist}', ${new_post.contest_week}, ${is_winner});`);
 
         return {message:'Successful transaction with DB [CREATE NEW POST]'};
     }
