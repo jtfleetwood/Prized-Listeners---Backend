@@ -31,7 +31,7 @@ export const get_win_by_id = async (id) => {
 export const create_win = async (new_win) => {
     try {        
         await pool.query(`INSERT INTO wins (post_id)
-        VALUES('${new_win.user_id}');`);
+        VALUES('${new_win.post_id}');`);
 
         return {message:'Successful transaction with DB [CREATE NEW WIN]'};
     }
