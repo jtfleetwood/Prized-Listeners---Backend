@@ -10,6 +10,7 @@ import bodyParser from 'body-parser';
 import errorhandler from 'errorhandler';
 import {post_router} from './routers/post_router.js';
 import {win_router} from './routers/win_router.js';
+import { users_router } from './routers/users_router.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -28,6 +29,7 @@ app.use(errorhandler());
 
 app.use('/posts', post_router);
 app.use('/wins', win_router);
+app.use('/users', users_router);
 
 app.listen(PORT);
 

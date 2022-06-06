@@ -73,7 +73,7 @@ export const get_user_vote = async (user_id) => {
 
         const user = await response.json();
 
-        return user.app_metadata.did_vote;
+        return user.app_metadata;
         
     }
 
