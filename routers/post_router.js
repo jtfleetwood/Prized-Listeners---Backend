@@ -19,6 +19,6 @@ post_router.patch('/:id/new_upvote', async (req, res) => {
     res.send(await queries.add_post_upvote(req.params.id));
 });
 
-post_router.patch('/:id/new_downvote', (req, res) => {
+post_router.patch('/:id/new_downvote', async (req, res) => {
     res.send(await queries.add_post_downvote(req.params.id));
 });
