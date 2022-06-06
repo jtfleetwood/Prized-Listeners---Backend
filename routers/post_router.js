@@ -14,3 +14,7 @@ post_router.get('/:id', async (req, res) => {
 post_router.post('/new_post', async (req, res) => {
     res.send(await queries.create_post(req.body));
 });
+
+post_router.patch('/:id/new_upvote', async (req, res) => {
+    res.send (await queries.add_post_upvote(req.params.id));
+});

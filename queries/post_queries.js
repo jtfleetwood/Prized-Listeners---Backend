@@ -41,3 +41,16 @@ export const create_post = async (new_post) => {
     }
 }
 
+export const add_post_upvote = async (id) => {
+    try {
+        await pool.query(`UPDATE posts SET upvotes = upvotes + 1
+        WHERE id = ${id}`);
+
+        return {message: 'Successful transaction with DB [NEW UPVOTE]'};
+
+    }
+
+    catch (error) {
+        return {message: 'Error with DB transaction - reason: ' + error.message};
+    }
+}
