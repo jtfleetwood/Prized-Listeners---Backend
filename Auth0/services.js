@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import {auth0_data, TOKEN_REQ_URL} from './auth0_config.js';
 
 
-export const get_token = async () => {
+const get_token = async () => {
     try {
     
         const response = await fetch(TOKEN_REQ_URL, {
@@ -42,6 +42,45 @@ export const set_did_vote = async (user_id) => {
     }
 }
 
+export const get_users = async () => {
+    try {
+        const token = await get_token()
+        
+        const response = await fetch(`${auth0_data.audience}users`, {
+            method: 'GET',
+            headers:{authorization:'Bearer ' + token, 'content-type':'application/json'},
+        });
+
+        const users = await response.json();
+
+        return users;
+        
+    }
+
+    catch(error) {
+        console.log(error);
+    }
+}
+
+export const get_user_vote = async (user_id) => {
+    try {
+        const token = await get_token()
+        
+        const response = await fetch(`${auth0_data.audience}users/${user_id}`, {
+            method: 'GET',
+            headers:{authorization:'Bearer ' + token, 'content-type':'application/json'},
+        });
+
+        const user = await response.json();
+
+        return user.app_metadata.did_vote;
+        
+    }
+
+    catch(error) {
+        console.log(error);
+    }
+}
 
 
 
