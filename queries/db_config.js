@@ -1,5 +1,7 @@
 import dotenv from 'dotenv';
-dotenv.config();
+import findConfig from 'find-config';
+
+dotenv.config({path:findConfig('.env')});
 
 export const db_data = {
     user: process.env.USER,
@@ -11,5 +13,6 @@ export const db_data = {
         rejectUnauthorized:false
     }
 }
+
 
 

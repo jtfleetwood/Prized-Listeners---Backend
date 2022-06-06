@@ -1,10 +1,11 @@
 import {Pool} from 'node-postgres';
-import {db_data} from "../db_config.js";
+import {db_data} from "./db_config.js";
 import {post} from '../models/post.js';
 
 const pool = new Pool(db_data);
 
 export const get_posts = async () => {
+    
     try {
         let posts = await pool.query('SELECT * FROM posts');
 
