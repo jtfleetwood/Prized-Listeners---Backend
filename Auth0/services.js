@@ -123,7 +123,13 @@ export const check_new_user = async (user_id) => {
     try {
         const user = await get_user_by_id(user_id);
 
-        if (user.app_metadata.did_vote === undefined) {
+        try {
+            if (user.app_metadata.did_vote) {
+                return;
+            }
+        }
+
+        catch (error) {
             await init_user_metadata(user_id);
         }
     }
@@ -132,4 +138,5 @@ export const check_new_user = async (user_id) => {
         console.log(error);
     }
 }
+
 
