@@ -82,7 +82,7 @@ export const get_user_vote = async (user_id) => {
     }
 }
 
-export const init_user_vote = async (user_id) => {
+export const get_user_by_id = async (user_id) => {
     try {
         const token = await get_token()
         
@@ -93,7 +93,7 @@ export const init_user_vote = async (user_id) => {
 
         const user = await response.json();
 
-        return {did_vote:user.app_metadata.did_vote}
+        return user;
         
     }
 
@@ -102,5 +102,34 @@ export const init_user_vote = async (user_id) => {
     }
 }
 
+export const init_user_metadata = async (user_id) => {
+    try {
+        const token = await get_token()
+        
+        const response = await fetch(`${auth0_data.audience}users/${user_id}`, {
+            method: 'PATCH',
+            headers:{authorization:'Bearer ' + token, 'content-type':'application/json'},
+            body:JSON.stringify({app_metadata: {did_vote:false, win_count:0, tie_count:0}})
+        });
+        
+    }
 
+    catch(error) {
+        console.log(error);
+    }
+}
+
+export const check_new_user = async (user_id) => {
+    try {
+        const user = await get_user_by_id(user_id);
+
+        if (user.logins_count === 1) {
+            await init_user_metadata(user_id);
+        }
+    }
+
+    catch (error) {
+        console.log(error);
+    }
+}
 
