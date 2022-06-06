@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import {auth0_data} from './auth0_config.js';
+import {auth0_data, TOKEN_REQ_URL} from './auth0_config.js';
 
 try {
     
@@ -7,7 +7,7 @@ try {
 
     const token = await response.json();
 
-    console.log(token);
+    
 }
 
 catch (error) {

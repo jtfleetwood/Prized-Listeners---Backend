@@ -1,5 +1,5 @@
 import {Pool}  from "node-postgres";
-import {db_data} from "../db_config.js";
+import { db_data } from "./db_config.js";
 import {win} from '../models/win.js';
 
 const pool = new Pool(db_data);

@@ -12,5 +12,3 @@ export const auth0_data = {
 
 
 export const TOKEN_REQ_URL = process.env.AUTH0_ISSUER_BASE_URL;
-
-console.log(TOKEN_REQ_URL);
