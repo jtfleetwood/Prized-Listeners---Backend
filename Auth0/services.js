@@ -123,7 +123,7 @@ export const check_new_user = async (user_id) => {
     try {
         const user = await get_user_by_id(user_id);
 
-        if (user.logins_count === 1) {
+        if (user.app_metadata.did_vote === undefined) {
             await init_user_metadata(user_id);
         }
     }
