@@ -1,5 +1,6 @@
 import express from 'express';
 import * as queries from '../queries/post_queries.js';
+import * as auth0_services from '../Auth0/services.js';
 
 export const post_router = express.Router();
 
@@ -16,9 +17,11 @@ post_router.post('/new_post', async (req, res) => {
 });
 
 post_router.patch('/:id/new_upvote', async (req, res) => {
+    await auth0_services.set_did_vote(req.body.user_id);
     res.send(await queries.add_post_upvote(req.params.id));
 });
 
 post_router.patch('/:id/new_downvote', async (req, res) => {
+    await auth0_services.set_did_vote(req.body.user_id);
     res.send(await queries.add_post_downvote(req.params.id));
 });
