@@ -10,4 +10,8 @@ users_router.get('/', async (req, res) => {
 
 users_router.get('/:id/check_vote', async (req, res) => {
     res.send(await auth0_services.get_user_vote(req.params.id));
-})
+});
+
+users_router.patch('/:id/check_new_user', async (req, res) => {
+    res.send(await auth0_services.check_new_user(req.params.id));
+});
