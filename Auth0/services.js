@@ -73,7 +73,27 @@ export const get_user_vote = async (user_id) => {
 
         const user = await response.json();
 
-        return user.app_metadata;
+        return {did_vote:user.app_metadata.did_vote}
+        
+    }
+
+    catch(error) {
+        console.log(error);
+    }
+}
+
+export const init_user_vote = async (user_id) => {
+    try {
+        const token = await get_token()
+        
+        const response = await fetch(`${auth0_data.audience}users/${user_id}`, {
+            method: 'GET',
+            headers:{authorization:'Bearer ' + token, 'content-type':'application/json'},
+        });
+
+        const user = await response.json();
+
+        return {did_vote:user.app_metadata.did_vote}
         
     }
 
