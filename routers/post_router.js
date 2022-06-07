@@ -25,3 +25,7 @@ post_router.patch('/:id/new_downvote', async (req, res) => {
     await auth0_services.set_did_vote(req.body.user_id);
     res.send(await queries.add_post_downvote(req.params.id));
 });
+
+post_router.get('/:user_id/:week', async (req, res) => {
+    res.send(await queries.find_post_count_by_user(req.params.user_id, req.params.week));
+})

@@ -68,3 +68,16 @@ export const add_post_downvote = async (id) => {
         return {message: 'Error with DB transaction - reason: ' + error.message};
     }
 }
+
+export const find_post_count_by_user = async (user_id, week) => {
+    try {
+        const post = await pool.query(`SELECT * FROM posts where user_id = ${user_id} AND contest_week = ${week}`);
+
+        return {count : post.rowCount};
+
+    }
+
+    catch (error) {
+        return {message: 'Error with DB transaction - reason: ' + error.message};
+    }
+}
