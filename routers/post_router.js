@@ -28,4 +28,4 @@ post_router.patch('/:id/new_downvote', async (req, res) => {
 
 post_router.get('/:user_id/:week', async (req, res) => {
     res.send(await queries.find_post_count_by_user(req.params.user_id, req.params.week));
-})
+});
