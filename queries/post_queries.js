@@ -86,7 +86,7 @@ export const check_user_vote = async (user_id, post_id) => {
     try {
         const post = await pool.query(`SELECT * from posts WHERE id = ${post_id}`);
 
-        if (post.user_id === user_id) {
+        if (post[0].user_id === user_id) {
             return {status: true};
         }
 
