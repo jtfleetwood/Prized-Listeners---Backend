@@ -31,5 +31,5 @@ post_router.get('/:user_id/:week', async (req, res) => {
 });
 
 post_router.get('/:user_id/:post_id/did_self_vote', async (req, res) => {
-    res.send(await queries.check_user_vote(req.params.user_id, req.params.post_id));
-})
+    res.send(await queries.check_user_self_vote(req.params.user_id, req.params.post_id));
+});

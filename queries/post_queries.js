@@ -82,11 +82,11 @@ export const find_post_count_by_user = async (user_id, week) => {
     }
 }
 
-export const check_user_vote = async (user_id, post_id) => {
+export const check_user_self_vote = async (user_id, post_id) => {
     try {
         const post = await pool.query(`SELECT * from posts WHERE id = ${post_id}`);
 
-        if (post[0].user_id === user_id) {
+        if (post.rows[0].user_id === user_id) {
             return {status: true};
         }
 
