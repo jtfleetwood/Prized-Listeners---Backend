@@ -81,3 +81,19 @@ export const find_post_count_by_user = async (user_id, week) => {
         return {message: 'Error with DB transaction - reason: ' + error.message};
     }
 }
+
+export const check_user_vote = async (user_id, post_id) => {
+    try {
+        const post = await pool.query(`SELECT * from posts WHERE id = ${post_id}`);
+
+        if (post.user_id === user_id) {
+            return {status: true};
+        }
+
+        return {status: false};
+    }
+
+    catch (error) {
+        console.log(error);
+    }
+}
