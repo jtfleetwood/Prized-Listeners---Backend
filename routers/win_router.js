@@ -14,3 +14,7 @@ win_router.get('/:id', async (req, res) => {
 win_router.post('/new_win', async (req, res) => {
     res.send(await queries.create_win(req.body));
 });
+
+win_router.get('/user/:user_id', async (req, res) => {
+    res.send(await queries.get_user_win_count(req.params.user_id));
+})

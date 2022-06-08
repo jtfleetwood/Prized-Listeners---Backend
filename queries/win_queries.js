@@ -41,3 +41,18 @@ export const create_win = async (new_win) => {
     }
 }
 
+export const get_user_win_count = async (user_id) => {
+    try {
+        const query = await pool.query(`SELECT COUNT(*)
+        FROM posts, wins
+        WHERE posts.user_id = '${user_id}' AND posts.id = wins.post_id`);
+
+        return {count : Number(query.rows[0].count)}
+    }
+
+    catch (error) {
+        console.log(error);
+    }
+}
+
+
