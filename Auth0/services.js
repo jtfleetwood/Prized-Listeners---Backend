@@ -139,4 +139,20 @@ export const check_new_user = async (user_id) => {
     }
 }
 
+export const change_user_display_name = async (user_id, name) => {
+    try {
+        const token = await get_token();
+
+        const response = await fetch(`${auth0_data.audience}users/${user_id}`, {
+            method:'PATCH',
+            headers:{authorization:'Bearer ' + token, 'content-type':'application/json'},
+            body:JSON.stringify({nickname:name})
+        });
+    }
+
+    catch (error) {
+        console.log(error);
+    }
+}
+
 
