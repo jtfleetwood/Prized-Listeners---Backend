@@ -8,6 +8,10 @@ users_router.get('/', async (req, res) => {
     res.send(await auth0_services.get_users())
 });
 
+users_router.get('/:id', async (req, res) => {
+    res.send(await auth0_services.get_user_by_id(req.params.id));
+})
+
 users_router.get('/:id/check_vote', async (req, res) => {
     res.send(await auth0_services.get_user_vote(req.params.id));
 });

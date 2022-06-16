@@ -44,7 +44,7 @@ export const set_did_vote = async (user_id) => {
 
 export const get_users = async () => {
     try {
-        const token = await get_token()
+        const token = await get_token();
         
         const response = await fetch(`${auth0_data.audience}users`, {
             method: 'GET',
@@ -148,6 +148,8 @@ export const change_user_display_name = async (user_id, name) => {
             headers:{authorization:'Bearer ' + token, 'content-type':'application/json'},
             body:JSON.stringify({nickname:name})
         });
+
+        return response;
     }
 
     catch (error) {
