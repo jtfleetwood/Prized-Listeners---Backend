@@ -5,7 +5,7 @@ import * as auth0_services from '../Auth0/services.js';
 export const post_router = express.Router();
 
 post_router.get('/', async (req, res) => {
-    res.send(await queries.get_posts());
+    res.send(await queries.get_posts_by_current_week());
 });
 
 post_router.get('/:id', async (req, res) => {

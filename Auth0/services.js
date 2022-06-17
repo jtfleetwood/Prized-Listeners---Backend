@@ -42,6 +42,25 @@ export const set_did_vote = async (user_id) => {
     }
 }
 
+
+export const reset_user_vote = async (user_id, token) => {
+    try {
+
+        const response = await fetch(`${auth0_data.audience}users/${user_id}`, {
+            method: 'PATCH',
+            headers:{authorization:'Bearer ' + token, 'content-type':'application/json'},
+            body:JSON.stringify({app_metadata: {did_vote:false}})
+        });
+
+        const json_response = await response.json();
+        
+    }
+
+    catch(error) {
+        console.log(error);
+    }
+}
+
 export const get_users = async () => {
     try {
         const token = await get_token();
@@ -95,6 +114,32 @@ export const get_user_by_id = async (user_id) => {
 
         return user;
         
+    }
+
+    catch(error) {
+        console.log(error);
+    }
+}
+
+export const get_user_win_count = async (user_id) => {
+    try {
+
+        const user = await get_user_by_id(user_id);
+
+        return user.app_metadata.win_count;
+    }
+
+    catch(error) {
+        console.log(error);
+    }
+   
+}
+
+export const get_user_tie_count = async (user_id) => {
+    try {
+        const user = await get_user_by_id(user_id);
+
+        return user.app_metadata.tie_count;
     }
 
     catch(error) {
@@ -157,4 +202,49 @@ export const change_user_display_name = async (user_id, name) => {
     }
 }
 
+export const set_users_to_winners = async (winners) => {
+    try {
+        const token = await get_token();
 
+        if (winners.rowCount === 1) {
+            let user_win_count = await get_user_win_count(winners.rows[0].user_id);
+            user_win_count += 1;
+
+            const response = await fetch(`${auth0_data.audience}users/${winners.rows[0].user_id}`, {
+                method:'PATCH',
+                headers:{authorization:'Bearer ' + token, 'content-type':'application/json'},
+                body:JSON.stringify({app_metadata:{win_count:user_win_count}})
+            });
+    
+            return response;
+
+        }
+
+        for (let i = 0; i < winners.rowCount; i++) {
+            
+            let user_tie_count = await get_user_tie_count(winners.rows[i].user_id);
+            user_tie_count += 1;
+
+            const response = await fetch(`${auth0_data.audience}users/${winners.rows[i].user_id}`, {
+                method:'PATCH',
+                headers:{authorization:'Bearer ' + token, 'content-type':'application/json'},
+                body:JSON.stringify({app_metadata:{tie_count:user_tie_count}})
+            });
+        }
+    }
+
+    catch (error) {
+        console.log(error);
+    }
+}
+
+export const reset_users_vote_status = async () => {
+    const users = await get_users();
+
+    const token = await get_token();
+
+    for (let i = 0; i < users.length; i++) {
+        await reset_user_vote(users[i].user_id, token);
+    }
+
+}

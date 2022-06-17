@@ -1,6 +1,7 @@
 import {Pool} from 'node-postgres';
 import {db_data} from "./db_config.js";
 import {post} from '../models/post.js';
+import { get_current_week } from './maintenance_queries.js';
 
 const pool = new Pool(db_data);
 
@@ -8,6 +9,20 @@ export const get_posts = async () => {
     
     try {
         let posts = await pool.query('SELECT * FROM posts');
+
+        return posts.rows;
+    }
+
+    catch (error) {
+        return {message:'Error with DB transaction - reason: ' + error.message};
+    }
+}
+
+export const get_posts_by_current_week = async () => {
+    try {
+        const current_week = await get_current_week();
+
+        const posts = await pool.query(`SELECT * from posts WHERE contest_week = ${current_week}`);
 
         return posts.rows;
     }
