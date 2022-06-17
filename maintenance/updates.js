@@ -27,3 +27,5 @@ const handleEOW = async () => {
         console.log(error);
     }
 }
+
+await handleEOW();

@@ -126,7 +126,7 @@ export const get_user_win_count = async (user_id) => {
 
         const user = await get_user_by_id(user_id);
 
-        return user.app_metadata.win_count;
+        return {win_count:user.app_metadata.win_count};
     }
 
     catch(error) {
@@ -139,7 +139,7 @@ export const get_user_tie_count = async (user_id) => {
     try {
         const user = await get_user_by_id(user_id);
 
-        return user.app_metadata.tie_count;
+        return {tie_count:user.app_metadata.tie_count};
     }
 
     catch(error) {

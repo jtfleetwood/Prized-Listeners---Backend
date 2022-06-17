@@ -35,5 +35,3 @@ export const inc_current_week = async () => {
         console.log(error);
     }
 }
-
-await inc_current_week();
