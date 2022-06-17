@@ -28,4 +28,8 @@ const handleEOW = async () => {
     }
 }
 
-await handleEOW();
+// Weekly application maintenance... Occuring every Sunday at 11:59 PM EST.
+export const weekly_updates = cron.schedule('0 59 23 * * Sunday', async () => {
+    await handleEOW();
+});
+

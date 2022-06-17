@@ -208,12 +208,13 @@ export const set_users_to_winners = async (winners) => {
 
         if (winners.rowCount === 1) {
             let user_win_count = await get_user_win_count(winners.rows[0].user_id);
-            user_win_count += 1;
+
+            user_win_count.win_count += 1;
 
             const response = await fetch(`${auth0_data.audience}users/${winners.rows[0].user_id}`, {
                 method:'PATCH',
                 headers:{authorization:'Bearer ' + token, 'content-type':'application/json'},
-                body:JSON.stringify({app_metadata:{win_count:user_win_count}})
+                body:JSON.stringify({app_metadata:{win_count:user_win_count.win_count}})
             });
     
             return response;
