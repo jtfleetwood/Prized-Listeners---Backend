@@ -1,3 +1,3 @@
 #!/usr/bin/bash
 
-if [ "$(date +%u)" = 1 ]; then node maintenance/updates.js; fi
+if [ "$(date +%u)" = 7 ]; then node maintenance/updates.js; fi
