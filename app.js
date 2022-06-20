@@ -12,7 +12,6 @@ import {post_router} from './routers/post_router.js';
 import {win_router} from './routers/win_router.js';
 import { users_router } from './routers/users_router.js';
 import { maintenance_router } from './routers/maintenance_router.js';
-import { weekly_updates } from './maintenance/updates.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -34,7 +33,4 @@ app.use('/wins', win_router);
 app.use('/users', users_router);
 app.use('/maintenance', maintenance_router);
 
-app.listen(PORT, () => {
-    weekly_updates.start();
-});
-
+app.listen(PORT);

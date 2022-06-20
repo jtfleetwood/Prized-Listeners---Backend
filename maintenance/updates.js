@@ -1,4 +1,3 @@
-import cron from 'node-cron';
 import {find_winner, set_posts_to_winner } from '../queries/win_queries.js';
 import { reset_users_vote_status, set_users_to_winners } from '../Auth0/services.js';
 import { inc_current_week } from '../queries/maintenance_queries.js';
@@ -29,7 +28,4 @@ const handleEOW = async () => {
 }
 
 // Weekly application maintenance... Occuring every Sunday at 11:59 PM EST.
-export const weekly_updates = cron.schedule('0 59 23 * * Sunday', async () => {
-    await handleEOW();
-});
-
+await handleEOW();
