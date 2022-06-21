@@ -3,6 +3,10 @@ import { db_data } from './db_config.js';
 
 const pool = new Pool(db_data);
 
+pool.on('error', (err, client) => {
+    return;
+});
+
 export const get_current_week = async () => {
 
     try {

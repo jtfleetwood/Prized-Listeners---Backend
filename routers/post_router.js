@@ -1,6 +1,7 @@
 import express from 'express';
 import * as queries from '../queries/post_queries.js';
 import * as auth0_services from '../Auth0/services.js';
+import { post } from '../models/post.js';
 
 export const post_router = express.Router();
 
@@ -13,7 +14,11 @@ post_router.get('/:id', async (req, res) => {
 });
 
 post_router.post('/new_post', async (req, res) => {
-    res.send(await queries.create_post(req.body));
+    
+    const result = await queries.create_post(req.body);
+
+    res.status(result.status).send(result);
+    
 });
 
 post_router.patch('/:id/new_upvote', async (req, res) => {

@@ -39,11 +39,10 @@ app.use(cors({
     origin: '*'
 }));
 
-app.use(jwtCheck);
 
+app.use(jwtCheck);
 app.use(bodyParser.json());
 app.use(errorhandler());
-
 
 app.use('/posts', post_router);
 app.use('/wins', win_router);

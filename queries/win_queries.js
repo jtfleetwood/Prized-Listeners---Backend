@@ -5,6 +5,10 @@ import { get_current_week } from "./maintenance_queries.js";
 
 const pool = new Pool(db_data);
 
+pool.on('error', (err, client) => {
+    return;
+});
+
 export const get_wins = async () => {
     try {
         let wins = await pool.query('SELECT * FROM wins');

@@ -5,10 +5,14 @@ import { get_current_week } from './maintenance_queries.js';
 
 const pool = new Pool(db_data);
 
+pool.on('error', (err, client) => {
+    return;
+});
+
 export const get_posts = async () => {
     
     try {
-        let posts = await pool.query('SELECT * FROM posts');
+        const posts = await pool.query('SELECT * FROM posts');
 
         return posts.rows;
     }
@@ -46,14 +50,16 @@ export const get_post_by_id = async (id) => {
 
 export const create_post = async (new_post) => {
     try {
+        
         await pool.query(`INSERT INTO posts (user_id, title, upvotes, yt_url, primary_artist, contest_week, is_winner)
-        VALUES('${new_post.user_id}', '${new_post.title}', ${new_post.upvotes}, '${new_post.yt_url}', '${new_post.primary_artist}', ${new_post.contest_week}, ${new_post.is_winner});`);
+        VALUES('${new_post.user_id}', '${new_post.title}', ${new_post.upvotes}, 
+        '${new_post.yt_url}', '${new_post.primary_artist}', ${new_post.contest_week}, ${new_post.is_winner});`);
 
-        return {message:'Successful transaction with DB [CREATE NEW POST]'};
+        return {status:201};
     }
 
     catch (error) {
-        return {message:'Error with DB transaction - reason: ' + error.message};
+        return {status:406};
     }
 }
 
