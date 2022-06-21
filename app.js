@@ -12,6 +12,8 @@ import {post_router} from './routers/post_router.js';
 import {win_router} from './routers/win_router.js';
 import { users_router } from './routers/users_router.js';
 import { maintenance_router } from './routers/maintenance_router.js';
+import { expressjwt } from 'express-jwt';
+import { expressJwtSecret } from 'jwks-rsa';
 import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -19,10 +21,25 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+var jwtCheck = expressjwt({
+    secret: expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 15,
+        jwksUri: process.env.JWK_URI
+  }),
+  audience: process.env.API_URL,
+  issuer: process.env.TOKEN_ISSUER,
+  algorithms: ['RS256']
+});
+
+
 // Middleware to handle request body parsing, and error handling.
 app.use(cors({
     origin: '*'
 }));
+
+app.use(jwtCheck);
 
 app.use(bodyParser.json());
 app.use(errorhandler());
