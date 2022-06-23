@@ -1,3 +1,8 @@
+/*******************************************************************************
+ * Developer: JT Fleetwood
+ * Module: Queries for all win-specific queries.
+ * ****************************************************************************/
+
 import {Pool}  from "node-postgres";
 import { db_data } from "./db_config.js";
 import {win} from '../models/win.js';
@@ -6,9 +11,11 @@ import { get_current_week } from "./maintenance_queries.js";
 const pool = new Pool(db_data);
 
 pool.on('error', (err, client) => {
+    console.log(err);
     return;
 });
 
+// Gets all wins.
 export const get_wins = async () => {
     try {
         let wins = await pool.query('SELECT * FROM wins');
@@ -21,6 +28,7 @@ export const get_wins = async () => {
     }
 }
 
+// Gets a win by id.
 export const get_win_by_id = async (id) => {
     try {
         let win = await pool.query(`SELECT * FROM wins WHERE id = ${id}`);
@@ -33,6 +41,7 @@ export const get_win_by_id = async (id) => {
     }
 }
 
+// Creates a win and enters into DB.
 export const create_win = async (new_win) => {
     try {        
         await pool.query(`INSERT INTO wins (post_id)
@@ -46,6 +55,7 @@ export const create_win = async (new_win) => {
     }
 }
 
+// Finds winner(s) for current week.
 export const find_winner = async () => {
     try {
         const current_week = await get_current_week();
@@ -62,6 +72,7 @@ export const find_winner = async () => {
     }
 }
 
+// Sets all posts that won to winning status.
 export const set_posts_to_winner = async (winners) => {
 
     try {

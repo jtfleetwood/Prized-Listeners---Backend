@@ -1,12 +1,20 @@
+/*******************************************************************************
+ * Developer: JT Fleetwood
+ * Module: Queries performed for strictly maintenance reasons.
+ * ****************************************************************************/
+
 import {Pool} from 'node-postgres';
 import { db_data } from './db_config.js';
 
 const pool = new Pool(db_data);
 
+// This is the callback function executed after any error occurs with a specific query.
 pool.on('error', (err, client) => {
+    console.log(err);
     return;
 });
 
+// Get's current week variable from DB.
 export const get_current_week = async () => {
 
     try {
@@ -22,6 +30,7 @@ export const get_current_week = async () => {
 
 }
 
+// Increments current week variable from DB.
 export const inc_current_week = async () => {
     try {
         let current_week = await get_current_week()

@@ -1,6 +1,5 @@
 /*******************************************************************************
  * Developer: JT Fleetwood
- * Date: 5/27/2022
  * Module: Express backend app that will serve as a controller for all incoming
  * api requests.
  * ****************************************************************************/
@@ -21,6 +20,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+// JWT acknowledgement, allows auth0 to issue JWT's that will be verified by the audience (our API).
 var jwtCheck = expressjwt({
     secret: expressJwtSecret({
         cache: true,
@@ -34,16 +34,18 @@ var jwtCheck = expressjwt({
 });
 
 
-// Middleware to handle request body parsing, and error handling.
+// CORS policy does not really matter at this moment with all endpoints beings secured via JWT bearer token verification.
 app.use(cors({
     origin: '*'
 }));
 
 
+// Middleware to check JWT passed in through header, parse body of request, and handle errors.
 app.use(jwtCheck);
 app.use(bodyParser.json());
 app.use(errorhandler());
 
+// Different routes used.
 app.use('/posts', post_router);
 app.use('/wins', win_router);
 app.use('/users', users_router);

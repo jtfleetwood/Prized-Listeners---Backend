@@ -1,3 +1,9 @@
+/*******************************************************************************
+ * Developer: JT Fleetwood
+ * Module: Auth0 config data that supports backend integration with Auth0 
+ * Management API (handles administrative-related tasks for users).
+ * ****************************************************************************/
+
 import dotenv from 'dotenv';
 import findConfig from 'find-config';
 

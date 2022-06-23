@@ -1,7 +1,13 @@
+/*******************************************************************************
+ * Developer: JT Fleetwood
+ * Module: Methods that effectively integrate Auth0 Management API with our 
+ * backend.
+ * ****************************************************************************/
+
 import fetch from 'node-fetch';
 import {auth0_data, TOKEN_REQ_URL} from './auth0_config.js';
 
-
+// Gets bearer token, so our backend can integrate with Auth0 Management API.
 const get_token = async () => {
     try {
     
@@ -23,6 +29,7 @@ const get_token = async () => {
 
 }
 
+// Alters a user's app metadata to set if voted or not. App metadata serves as almost an additional column(s) in the DB for all users.
 export const set_did_vote = async (user_id) => {
     try {
         const token = await get_token()
@@ -42,7 +49,7 @@ export const set_did_vote = async (user_id) => {
     }
 }
 
-
+// Resets a user's vote status (app metadata).
 export const reset_user_vote = async (user_id, token) => {
     try {
 
@@ -61,6 +68,7 @@ export const reset_user_vote = async (user_id, token) => {
     }
 }
 
+// Get's all users from Auth0 DB.
 export const get_users = async () => {
     try {
         const token = await get_token();
@@ -81,6 +89,7 @@ export const get_users = async () => {
     }
 }
 
+// Get's a user's weekly vote status (did vote yet or not).
 export const get_user_vote = async (user_id) => {
     try {
         const token = await get_token()
@@ -101,6 +110,7 @@ export const get_user_vote = async (user_id) => {
     }
 }
 
+// Get's a user's information by id.
 export const get_user_by_id = async (user_id) => {
     try {
         const token = await get_token()
@@ -121,6 +131,7 @@ export const get_user_by_id = async (user_id) => {
     }
 }
 
+// Get's user's win count via application metadata.
 export const get_user_win_count = async (user_id) => {
     try {
 
@@ -135,6 +146,7 @@ export const get_user_win_count = async (user_id) => {
    
 }
 
+// Get's user's tie count via application metadata.
 export const get_user_tie_count = async (user_id) => {
     try {
         const user = await get_user_by_id(user_id);
@@ -147,6 +159,7 @@ export const get_user_tie_count = async (user_id) => {
     }
 }
 
+// Upon a first sign-in, initializes a new user's metadata.
 export const init_user_metadata = async (user_id) => {
     try {
         const token = await get_token()
@@ -164,6 +177,7 @@ export const init_user_metadata = async (user_id) => {
     }
 }
 
+// Supports the above meta data initialization.
 export const check_new_user = async (user_id) => {
     try {
         const user = await get_user_by_id(user_id);
@@ -184,6 +198,7 @@ export const check_new_user = async (user_id) => {
     }
 }
 
+// Alters user record stored on Auth0 side.
 export const change_user_display_name = async (user_id, name) => {
     try {
         const token = await get_token();
@@ -202,6 +217,7 @@ export const change_user_display_name = async (user_id, name) => {
     }
 }
 
+// Finds all winning users for a week, and increments win count for each.
 export const set_users_to_winners = async (winners) => {
     try {
         const token = await get_token();
@@ -239,6 +255,7 @@ export const set_users_to_winners = async (winners) => {
     }
 }
 
+// Resets all user's vote status.
 export const reset_users_vote_status = async () => {
     const users = await get_users();
 

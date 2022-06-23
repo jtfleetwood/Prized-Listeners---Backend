@@ -1,7 +1,14 @@
+/*******************************************************************************
+ * Developer: JT Fleetwood
+ * Module: This module will run weekly at Sun at 12:00 AM to maintain the current
+ * state of the application via a scheduler, and bash script.
+ * ****************************************************************************/
+
 import {find_winner, set_posts_to_winner } from '../queries/win_queries.js';
 import { reset_users_vote_status, set_users_to_winners } from '../Auth0/services.js';
 import { inc_current_week } from '../queries/maintenance_queries.js';
 
+// Handles all maintenance.
 const handleEOW = async () => {
     try {
 
